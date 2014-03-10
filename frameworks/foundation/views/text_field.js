@@ -61,9 +61,8 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
    */
   commitOnBlur: YES,
 
-  /** @deprecated
+  /**
     If `YES`, the field will hide its text from display.
-    This value is deprecated. Please use `type` instead to `"password"`.
 
     @type Boolean
     @default NO
@@ -733,10 +732,6 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
         // Internet Explorer won't let us change the type attribute later
         // so we force it to password if needed now, or if the value is not the hint
         if (this.get('isPassword')) {
-          // @if (debug)
-          SC.Logger.warn("SC.TextFieldView#isPassword is deprecated. Please set SC.TextFieldView#type to password instead.");
-          // @endif
-
           type = 'password';
         }
 
