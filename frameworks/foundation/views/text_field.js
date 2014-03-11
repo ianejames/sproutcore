@@ -642,6 +642,7 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
       isTextArea = this.get('isTextArea'),
       isEnabledInPane = this.get('isEnabledInPane'),
       isEditable = this.get('isEditable'),
+      isPassword = this.get('isPassword'),
       autoCorrect = this.get('autoCorrect'),
       autoCapitalize = this.get('autoCapitalize'),
       autoComplete = this.get('autoComplete'),
@@ -731,7 +732,7 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
 
         // Internet Explorer won't let us change the type attribute later
         // so we force it to password if needed now, or if the value is not the hint
-        if (this.get('isPassword')) {
+        if (isPassword) {
           type = 'password';
         }
 
@@ -756,7 +757,7 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
       }
 
       if (!val || (val && val.length === 0)) {
-        if (this.get('isPassword')) { element.type = 'password'; }
+        if (isPassword) { element.type = 'password'; }
 
         if (!SC.platform.input.placeholder && this._hintON) {
           if (!this.get('isFirstResponder')) {
