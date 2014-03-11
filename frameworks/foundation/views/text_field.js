@@ -62,7 +62,8 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
   commitOnBlur: YES,
 
   /**
-    If `YES`, the field will hide its text from display.
+    If `YES`, the field will hide its text from display. This property should be
+    `NO` if `isTextArea` is used.
 
     @type Boolean
     @default NO
@@ -96,7 +97,8 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
   hint: '',
 
   /**
-    The type attribute of the input.
+    The type attribute of the input. This property should be 'text' if either
+    `isTextArea` or `isPassword` are used.
 
     @type String
     @default "text"
@@ -370,6 +372,22 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
       SC.Logger.warn("SC.TextFieldView#continuouslyUpdatesValue is deprecated. Please use #applyImmediately instead.");
       // @endif
     }
+
+    // @if (debug)
+    if (this.get('isTextArea')) {
+      if (type !== 'text') {
+        SC.Logger.warn("SC.TextFieldView#type should be 'text' for multiline text fields. The current value (%@) will be ignored.".fmt(type));
+      }
+      if (this.get('isPassword')) {
+        SC.Logger.warn("SC.TextFieldView#isPassword is not compatible with multiline text fields. THE CONTENTS OF THIS FIELD WILL BE DISPLAYED TO THE USER.");
+      }
+    }
+    if (this.get('isPassword')) {
+      if (this.get('type') !== 'text') {
+        SC.Logger.warn("SC.TextFieldView#type should be 'text' for password fields. The current value (%@) will be ignored.".fmt(type));
+      }
+    }
+    // @endif
 
     return sc_super();
   },
