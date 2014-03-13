@@ -635,7 +635,8 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
     // TODO:  The cleanest thing might be to create a sub- rendering context
     //        here, but currently SC.RenderContext will render sibling
     //        contexts as parent/child.
-    var hint = this.get('formattedHint'),
+    var type = this.get('type'),
+      hint = this.get('formattedHint'),
       hintOnFocus = this.get('hintOnFocus'),
       hintString = '',
       maxLength = this.get('maxLength'),
@@ -649,7 +650,7 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
       isBrowserFocusable = this.get('isBrowserFocusable'),
       spellCheckString = '', autocapitalizeString = '', autocorrectString = '',
       autocompleteString = '', activeStateString = '', browserFocusableString = '',
-      name, adjustmentStyle, type, paddingElementStyle,
+      name, adjustmentStyle, paddingElementStyle,
       fieldClassNames, isOldSafari;
 
     context.setClass('text-area', isTextArea);
@@ -728,8 +729,6 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
                       browserFocusableString + ' maxlength="' + maxLength +
                       '">' + value + '</textarea></div>');
       } else {
-        type = this.get('type');
-
         // Internet Explorer won't let us change the type attribute later
         // so we force it to password if needed now, or if the value is not the hint
         if (isPassword) {
