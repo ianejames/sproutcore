@@ -666,6 +666,7 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
       autoCapitalize = this.get('autoCapitalize'),
       autoComplete = this.get('autoComplete'),
       isBrowserFocusable = this.get('isBrowserFocusable'),
+      elementType,
       spellCheckString = '', autocapitalizeString = '', autocorrectString = '',
       autocompleteString = '', activeStateString = '', browserFocusableString = '',
       name, adjustmentStyle, paddingElementStyle,
@@ -750,10 +751,12 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
         // Internet Explorer won't let us change the type attribute later
         // so we force it to password if needed now, or if the value is not the hint
         if (isPassword) {
-          type = 'password';
+          elementType = 'password';
+        } else {
+          elementType = type;
         }
 
-        context.push('<input aria-label="' + hint + '" class="' + fieldClassNames + '" type="' + type +
+        context.push('<input aria-label="' + hint + '" class="' + fieldClassNames + '" type="' + elementType +
                       '" name="' + name + '"' + activeStateString + hintString +
                       spellCheckString + autocorrectString + autocapitalizeString +
                       autocompleteString + browserFocusableString + ' maxlength="' + maxLength +
@@ -775,9 +778,11 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
 
       if (!val || (val && val.length === 0)) {
         if (isPassword) {
-          type = 'password';
+          elementType = 'password';
+        } else {
+          elementType = type;
         }
-        element.type = type;
+        element.type = elementType;
 
         if (!SC.platform.input.placeholder && this._hintON) {
           if (!this.get('isFirstResponder')) {
