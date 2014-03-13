@@ -16,6 +16,21 @@ SC.AUTOCAPITALIZE_WORDS = 'words';
 SC.AUTOCAPITALIZE_CHARACTERS = 'characters';
 
 /**
+  The list of text types.
+
+  @readonly
+  @enum
+*/
+SC.TEXT_TYPE = {
+  TEXT: 'text',
+  SEARCH: 'search',
+  TELEPHONE: 'tel',
+  URL: 'url',
+  EMAIL: 'email',
+  NUMBER: 'number'
+};
+
+/**
   @class
 
   A text field is an input element with type "text".  This view adds support
@@ -97,13 +112,13 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
   hint: '',
 
   /**
-    The type attribute of the input. This property should be 'text' if either
-    `isTextArea` or `isPassword` are used.
+    The type attribute of the input. This property should be SC.TEXT_TYPE.TEXT
+    if either `isTextArea` or `isPassword` are used.
 
-    @type String
-    @default "text"
+    @type SC.TEXT_TYPE
+    @default SC.TEXT_TYPE.TEXT
    */
-  type: 'text',
+  type: SC.TEXT_TYPE.TEXT,
 
   /**
     This property will set a tabindex="-1" on your view if set to NO.
@@ -753,7 +768,28 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
         if (isPassword) {
           elementType = 'password';
         } else {
-          elementType = type;
+          switch (type) {
+          case SC.TEXT_TYPE.TEXT:
+            elementType = 'text';
+            break;
+          case SC.TEXT_TYPE.SEARCH:
+            elementType = 'search';
+            break;
+          case SC.TEXT_TYPE.TELEPHONE:
+            elementType = 'tel';
+            break;
+          case SC.TEXT_TYPE.URL:
+            elementType = 'url';
+            break;
+          case SC.TEXT_TYPE.EMAIL:
+            elementType = 'email';
+            break;
+          case SC.TEXT_TYPE.NUMBER:
+            elementType = 'number';
+            break;
+          default:
+            elementType = type;
+          }
         }
 
         context.push('<input aria-label="' + hint + '" class="' + fieldClassNames + '" type="' + elementType +
@@ -780,7 +816,28 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
         if (isPassword) {
           elementType = 'password';
         } else {
-          elementType = type;
+          switch (type) {
+          case SC.TEXT_TYPE.TEXT:
+            elementType = 'text';
+            break;
+          case SC.TEXT_TYPE.SEARCH:
+            elementType = 'search';
+            break;
+          case SC.TEXT_TYPE.TELEPHONE:
+            elementType = 'tel';
+            break;
+          case SC.TEXT_TYPE.URL:
+            elementType = 'url';
+            break;
+          case SC.TEXT_TYPE.EMAIL:
+            elementType = 'email';
+            break;
+          case SC.TEXT_TYPE.NUMBER:
+            elementType = 'number';
+            break;
+          default:
+            elementType = type;
+          }
         }
         element.type = elementType;
 
