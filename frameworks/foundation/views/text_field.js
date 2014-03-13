@@ -774,7 +774,10 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
       }
 
       if (!val || (val && val.length === 0)) {
-        if (isPassword) { element.type = 'password'; }
+        if (isPassword) {
+          type = 'password';
+        }
+        element.type = type;
 
         if (!SC.platform.input.placeholder && this._hintON) {
           if (!this.get('isFirstResponder')) {
