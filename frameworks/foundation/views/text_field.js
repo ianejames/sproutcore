@@ -681,7 +681,7 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
       autoCapitalize = this.get('autoCapitalize'),
       autoComplete = this.get('autoComplete'),
       isBrowserFocusable = this.get('isBrowserFocusable'),
-      elementType,
+      elementType, pattern, patternString = '',
       spellCheckString = '', autocapitalizeString = '', autocorrectString = '',
       autocompleteString = '', activeStateString = '', browserFocusableString = '',
       name, adjustmentStyle, paddingElementStyle,
@@ -792,7 +792,12 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
           }
         }
 
+        if (!SC.none(pattern)) {
+          patternString = ' pattern="' + pattern + '"';
+        }
+
         context.push('<input aria-label="' + hint + '" class="' + fieldClassNames + '" type="' + elementType +
+                      patternString
                       '" name="' + name + '"' + activeStateString + hintString +
                       spellCheckString + autocorrectString + autocapitalizeString +
                       autocompleteString + browserFocusableString + ' maxlength="' + maxLength +
@@ -840,6 +845,8 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
           }
         }
         element.type = elementType;
+
+        input.attr('pattern', pattern);
 
         if (!SC.platform.input.placeholder && this._hintON) {
           if (!this.get('isFirstResponder')) {
