@@ -27,7 +27,8 @@ SC.TEXT_TYPE = {
   TELEPHONE: 'tel',
   URL: 'url',
   EMAIL: 'email',
-  NUMBER: 'number'
+  NUMBER: 'number',
+  NUMERIC_TEXT: 'numeric_text'
 };
 
 /**
@@ -787,6 +788,10 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
           case SC.TEXT_TYPE.NUMBER:
             elementType = 'number';
             break;
+          case SC.TEXT_TYPE.NUMERIC_TEXT:
+            elementType = 'text';
+            pattern = '[0-9]*';
+            break;
           default:
             elementType = type;
           }
@@ -839,6 +844,10 @@ SC.TextFieldView = SC.FieldView.extend(SC.Editable,
             break;
           case SC.TEXT_TYPE.NUMBER:
             elementType = 'number';
+            break;
+          case SC.TEXT_TYPE.NUMERIC_TEXT:
+            elementType = 'text';
+            pattern = '[0-9]*';
             break;
           default:
             elementType = type;
